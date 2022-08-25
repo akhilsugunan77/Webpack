@@ -1,0 +1,1 @@
+{"version":3,"file":"main.js","mappings":";;;;;AAAA,IAAMA,KAAK,GAAG,aAAd;AACAC,OAAO,CAACC,GAAR,CAAYF,KAAZ,E","sources":["webpack://webpack/./src/index.js"],"sourcesContent":["const hello = \"hello world\";\r\nconsole.log(hello);"],"names":["hello","console","log"],"sourceRoot":""}
