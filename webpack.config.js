@@ -1,62 +1,22 @@
-const path=require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin=require("mini-css-extract-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const loader = require("sass-loader");
+const path = require("path");
+const jsPath = "/src/scripts";
+const cssPath = "/src/scss"
 
-module.exports = {
-    mode:"development",
-    entry:"./src/js/index.js",
+
+module.exports={
+    mode:'development',
+    entry:{
+        app:path.join(__dirname,jsPath,"/app/app.js"),
+        index:path.join(__dirname,jsPath,"/index.js"),
+        arrFile:{
+            import:path.join(__dirname,jsPath,"/app/file1.js"),
+            filename:"file/[name][contenthash].js",
+            dependOn:"app",
+        }
+        // main:path.join(__dirname,cssPath,"/main.scss")
+    },
     output:{
-        path:path.resolve(__dirname,"./build"),
-        filename:"[name].js",
-    },
-    plugins:[new HtmlWebpackPlugin({
-            template:"./src/index.html"
-            }),
-            new MiniCssExtractPlugin(),
-            new CleanWebpackPlugin({
-                cleanOnceBeforeBuildPatterns: [path.join(__dirname, 'build/**/*')]
-            }),
-        ],
-    devtool:"source-map",
-    module:{
-        rules:[
-            {
-                test:/\.js$/,
-                exclude:/node_modules/,
-                use:{
-                    loader:"babel-loader",
-                    options:{
-                        presets:["@babel/preset-env"]
-                    }
-                }
-            },
-            {
-                test:/\.s?css$/i,
-                exclude:/node_modules/,
-                use:[MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    "sass-loader",
-                ]
-            },
-            {
-                test:/\.(jpe?g|png|gif|svg|wepb)$/i,
-                type:"asset/resource",
-                generator : {
-                    filename : 'images/[name][ext]',
-                }
-            },
-            {
-                test:/\.(woff|woff2)$/,
-                type:"asset/resource",
-                generator : {
-                    filename : 'fonts/[name][ext]',
-                }
-            }
-        ]
-    },
-    devServer:{
-        static:"./build",
+        filename:'[name][contenthash].js',
+        clean:true,
     }
 }
